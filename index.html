@@ -3,353 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#070b14">
+<meta name="theme-color" content="#050912">
 <title>ZEROX TOPUP</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#060912;--panel:#0d1422;--panel2:#111b2d;
-  --line:#1d2b43;--text:#f4f7ff;--muted:#91a0b8;
-  --blue:#19a7ff;--blue2:#006dff;--green:#19d98b;--red:#ff4f70;
-}
-body{
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:radial-gradient(circle at top,#10213a 0,#060912 42%);
-  color:var(--text);min-height:100vh;
-}
-button,input{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-.container{width:min(1100px,92%);margin:auto}
-.topbar{
-  position:sticky;top:0;z-index:20;background:rgba(6,9,18,.88);
-  backdrop-filter:blur(14px);border-bottom:1px solid var(--line)
-}
-.nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.logo{font-size:22px;font-weight:900;letter-spacing:1px;color:#fff}
-.logo span{color:var(--blue)}
-.user-area{display:flex;align-items:center;gap:8px}
-.user-pill{background:#101c30;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:13px}
-.btn{
-  border:0;border-radius:12px;padding:11px 15px;font-weight:800;
-  transition:.2s; color:white
-}
-.btn:hover{transform:translateY(-1px)}
-.primary{background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 8px 25px #006dff35}
-.secondary{background:#142035;border:1px solid var(--line)}
-.danger{background:#351522;color:#ff9bad}
-.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
-.login-box{
-  width:min(430px,100%);background:rgba(13,20,34,.92);
-  border:1px solid #233653;border-radius:24px;padding:30px;
-  box-shadow:0 25px 80px #0009
-}
-.brand{text-align:center;margin-bottom:26px}
-.brand .logo{font-size:30px}
-.subtitle{color:var(--muted);margin-top:7px;font-size:14px}
-label{display:block;color:#cbd5e7;font-size:13px;font-weight:700;margin:15px 0 7px}
-input{
-  width:100%;padding:14px;border-radius:12px;border:1px solid var(--line);
-  background:#080e19;color:#fff;outline:none
-}
-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #19a7ff18}
-.full{width:100%;margin-top:16px}
-.demo{text-align:center;color:#65748b;font-size:12px;line-height:1.6;margin-top:18px}
-main{padding:26px 0 70px}
-.hero{
-  padding:30px;border-radius:24px;border:1px solid #244064;
-  background:linear-gradient(135deg,#10233c,#0b1220 65%);
-  box-shadow:0 18px 50px #0005;margin-bottom:28px
-}
-.hero h1{font-size:clamp(30px,7vw,52px);line-height:1;font-weight:950}
-.hero h1 span{color:var(--blue)}
-.hero p{color:#aebbd0;margin-top:12px}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
-.badge{padding:8px 11px;border-radius:999px;background:#09111f;border:1px solid var(--line);font-size:12px}
-.section-title{display:flex;align-items:end;justify-content:space-between;margin:25px 0 14px}
-.section-title h2{font-size:20px}
-.section-title small{color:var(--muted)}
-.games{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.game{
-  min-height:150px;padding:20px;border-radius:18px;background:var(--panel);
-  border:1px solid var(--line);transition:.2s;display:flex;flex-direction:column;
-  justify-content:space-between
-}
-.game:hover{transform:translateY(-3px);border-color:#2d77b7}
-.game-icon{font-size:40px}.game h3{font-size:17px}.game p{font-size:12px;color:var(--muted);margin-top:4px}
-.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
-.packages{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.package{
-  background:#0a111d;border:1px solid var(--line);border-radius:14px;
-  padding:15px;text-align:left;color:white
-}
-.package.active{border-color:var(--blue);box-shadow:0 0 0 2px #19a7ff20}
-.package strong{display:block;font-size:16px}.package span{color:var(--blue);font-weight:900}
-.summary{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:10px 0;color:#bdc8d9}
-.summary b{color:white}
-.total{font-size:24px;font-weight:950;color:var(--green);margin:18px 0}
-.orders{margin-top:20px}
-.order{padding:15px;background:#0a111d;border:1px solid var(--line);border-radius:14px;margin-top:10px}
-.order-top{display:flex;justify-content:space-between;gap:10px}
-.status{font-size:11px;padding:5px 8px;border-radius:999px;background:#18273b;color:#b9c8de}
-.note{font-size:12px;color:var(--muted);margin-top:6px}
-footer{border-top:1px solid var(--line);padding:25px 0;color:#64748b;text-align:center;font-size:12px}
-.toast{
-  position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);
-  background:#101a2a;border:1px solid #2a4567;padding:12px 16px;border-radius:12px;
-  opacity:0;pointer-events:none;transition:.25s;z-index:100
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:760px){
-  .games{grid-template-columns:repeat(2,1fr)}
-  .grid{grid-template-columns:1fr}
-  .nav{height:58px}
-  .user-pill{display:none}
-}
-@media(max-width:420px){
-  .games{grid-template-columns:1fr 1fr}.game{min-height:135px;padding:15px}
-  .login-box{padding:22px}.packages{grid-template-columns:1fr}
-}
+*{box-sizing:border-box;margin:0;padding:0} :root{--bg:#050912;--card:#0d1422;--card2:#111b2d;--line:#20304b;--text:#f5f8ff;--muted:#91a0b8;--blue:#18a8ff;--blue2:#006cff;--green:#19d98b;--red:#ff5274}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 20% 0,#122847 0,#050912 40%);color:var(--text);min-height:100vh}button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}.container{width:min(1150px,94%);margin:auto}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(5,9,18,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{min-height:68px;display:flex;align-items:center;gap:14px}.brand{font-weight:900;font-size:22px;letter-spacing:1px;white-space:nowrap}.brand span{color:var(--blue)}
+.navlinks{display:flex;gap:6px;margin-left:auto;overflow:auto}.navlinks button,.userbtn{background:transparent;color:#cbd6e8;border:1px solid transparent;padding:9px 11px;border-radius:10px;white-space:nowrap}.navlinks button:hover,.navlinks button.active,.userbtn:hover{background:#101b2e;border-color:#263b5d;color:#fff}.userbtn{border-color:var(--line)}
+main{padding:26px 0 50px}.page{display:none}.page.active{display:block}.hero{border:1px solid var(--line);border-radius:22px;padding:28px;background:linear-gradient(135deg,rgba(19,52,92,.8),rgba(9,14,25,.94));box-shadow:0 20px 60px rgba(0,0,0,.28);overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-80px;top:-100px;background:rgba(24,168,255,.18);filter:blur(10px)}h1{font-size:clamp(30px,6vw,54px);line-height:1.05}.hero p{color:#aebbd0;margin:12px 0 20px}.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--blue2));color:white;box-shadow:0 8px 22px rgba(0,108,255,.25)}.btn.secondary{background:#111b2d;border:1px solid var(--line);box-shadow:none}.section-title{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px}.section-title h2{font-size:22px}.muted{color:var(--muted)}
+.games{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.game{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}.game:hover{transform:translateY(-3px);border-color:#2f5d92}.gameimg{height:145px;background:#090f1c;display:flex;align-items:center;justify-content:center;padding:18px}.gameimg img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35))}.gamebody{padding:14px}.gamebody h3{margin-bottom:5px}.gamebody p{font-size:13px;color:var(--muted);margin-bottom:12px}.gamebody .btn{width:100%}
+.formbox,.profile,.history,.paybox,.contact{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{margin-bottom:14px}.field label{display:block;color:#c9d5e7;font-size:14px;margin-bottom:7px}.field input{width:100%;padding:13px 14px;border-radius:11px;border:1px solid var(--line);background:#08101d;color:white;outline:none}.field input:focus{border-color:var(--blue)}
+.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.pkg{border:1px solid var(--line);background:#0a1220;border-radius:14px;padding:15px;text-align:left}.pkg:hover,.pkg.selected{border-color:var(--blue);background:#0c1b30}.pkg strong{display:block;font-size:18px}.pkg span{color:#65d8ff;font-weight:800}.orderbox{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;align-items:center}.price{font-size:28px;font-weight:900}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.info{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}.info b{font-size:18px;display:block;margin-bottom:5px}.orders{display:grid;gap:10px}.order{padding:15px;border:1px solid var(--line);background:#0a1220;border-radius:13px;display:flex;justify-content:space-between;gap:10px}.status{color:var(--green);font-weight:800}.payqr{max-width:220px;width:100%;aspect-ratio:1;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;color:#111;margin:15px 0;font-weight:900}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#11294a,#050912 55%)}.loginbox{width:min(430px,100%);background:#0b1321;border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:0 30px 80px rgba(0,0,0,.45)}.loginbox h1{font-size:34px;margin-bottom:5px}.loginbox .field{margin-top:18px}.loginbox .btn{width:100%;margin-top:6px}.switch{margin-top:14px;text-align:center;color:var(--muted);font-size:13px}.switch button{background:none;border:0;color:#58c7ff}
+.footer{border-top:1px solid var(--line);padding:25px 0;color:#718099;text-align:center;margin-top:30px}
+@media(max-width:850px){.games{grid-template-columns:repeat(2,1fr)}.info-grid{grid-template-columns:1fr}.nav{align-items:flex-start;padding:10px 0;flex-wrap:wrap}.navlinks{order:3;width:100%;margin-left:0}.navlinks button{font-size:12px;padding:8px}.formgrid{grid-template-columns:1fr}.packages{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:450px){.games{grid-template-columns:1fr 1fr;gap:9px}.gameimg{height:105px;padding:10px}.gamebody{padding:10px}.gamebody h3{font-size:15px}.packages{grid-template-columns:1fr}.orderbox{align-items:stretch;flex-direction:column}.hero{padding:21px}.brand{font-size:19px}}
 </style>
 </head>
 <body>
-
-<section id="loginPage" class="login-wrap">
-  <div class="login-box">
-    <div class="brand">
-      <div class="logo">ZEROX <span>TOPUP</span></div>
-      <div class="subtitle">เติมเกมไว • ราคาถูก • ใช้งานง่าย</div>
-    </div>
-    <label for="username">ชื่อผู้ใช้</label>
-    <input id="username" type="text" placeholder="กรอกชื่อผู้ใช้" autocomplete="username">
-    <label for="password">รหัสผ่าน</label>
-    <input id="password" type="password" placeholder="กรอกรหัสผ่าน" autocomplete="current-password">
-    <button class="btn primary full" onclick="login()">เข้าสู่ระบบ</button>
-    <button class="btn secondary full" onclick="register()">สมัครสมาชิก</button>
-    <div class="demo">เวอร์ชันทดลอง Frontend<br>ระบบสมาชิกจริงจะเชื่อม Authentication + Database ในขั้นต่อไป</div>
+<div id="loginPage" class="login">
+  <div class="loginbox">
+    <div class="brand">ZEROX <span>TOPUP</span></div>
+    <h1 id="loginTitle">เข้าสู่ระบบ</h1>
+    <p class="muted">ร้านเติมเกมออนไลน์สำหรับสายเกม 🎮</p>
+    <div class="field"><label>ชื่อผู้ใช้</label><input id="username" placeholder="กรอกชื่อผู้ใช้"></div>
+    <div class="field"><label>รหัสผ่าน</label><input id="password" type="password" placeholder="กรอกรหัสผ่าน"></div>
+    <button class="btn" onclick="login()">เข้าสู่ระบบ</button>
+    <div class="switch"><span id="switchText">ยังไม่มีบัญชี?</span> <button onclick="toggleRegister()" id="switchBtn">สมัครสมาชิก</button></div>
+    <p class="muted" style="font-size:11px;margin-top:16px;text-align:center">เดโมเท่านั้น: ระบบสมาชิกจริงต้องเชื่อมฐานข้อมูล/ระบบ Auth ก่อนเปิดใช้งานจริง</p>
   </div>
-</section>
-
-<div id="store" class="hidden">
-  <header class="topbar">
-    <div class="container nav">
-      <div class="logo">ZEROX <span>TOPUP</span></div>
-      <div class="user-area">
-        <div class="user-pill">👤 <span id="showUser">ผู้ใช้</span></div>
-        <button class="btn danger" onclick="logout()">ออกจากระบบ</button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <div class="container">
-      <section class="hero">
-        <h1>ZEROX <span>TOPUP</span></h1>
-        <p>ร้านเติมเกมออนไลน์สำหรับคนที่อยากเติมง่ายๆ ผ่านมือถือ</p>
-        <div class="badges">
-          <div class="badge">⚡ เติมไว</div>
-          <div class="badge">🔒 ปลอดภัย</div>
-          <div class="badge">💸 ราคาประหยัด</div>
-          <div class="badge">📱 Mobile Friendly</div>
-        </div>
-      </section>
-
-      <div class="section-title">
-        <h2>🎮 เกมยอดนิยม</h2>
-        <small>เลือกเกมเพื่อเริ่มสั่งซื้อ</small>
-      </div>
-
-      <div class="games">
-        <button class="game" onclick="selectGame('Free Fire')">
-          <div class="game-icon">🔥</div><div><h3>Free Fire</h3><p>เติมเพชร • เซิร์ฟเวอร์ไทย</p></div>
-        </button>
-        <button class="game" onclick="selectGame('RoV')">
-          <div class="game-icon">⚔️</div><div><h3>RoV</h3><p>เติมคูปอง</p></div>
-        </button>
-        <button class="game" onclick="selectGame('PUBG Mobile')">
-          <div class="game-icon">🎯</div><div><h3>PUBG Mobile</h3><p>เติม UC</p></div>
-        </button>
-        <button class="game" onclick="selectGame('eFootball')">
-          <div class="game-icon">⚽</div><div><h3>eFootball</h3><p>เติมเหรียญ</p></div>
-        </button>
-      </div>
-
-      <section id="orderSection" class="hidden" style="margin-top:28px">
-        <div class="section-title"><h2>🛒 สั่งซื้อ <span id="gameName"></span></h2></div>
-        <div class="grid">
-          <div class="card">
-            <label for="playerId">UID / Player ID</label>
-            <input id="playerId" type="text" inputmode="numeric" placeholder="กรอก UID ของเกม">
-            <div class="note">ตรวจสอบ UID ให้ถูกต้องก่อนชำระเงิน เพราะการเติมผิดไอดีอาจแก้ไขไม่ได้</div>
-            <div class="section-title"><h2>📦 เลือกแพ็กเกจ</h2></div>
-            <div id="packages" class="packages"></div>
-          </div>
-
-          <div class="card">
-            <h2>🧾 สรุปคำสั่งซื้อ</h2>
-            <div class="summary"><span>เกม</span><b id="sumGame">-</b></div>
-            <div class="summary"><span>UID</span><b id="sumUid">-</b></div>
-            <div class="summary"><span>แพ็กเกจ</span><b id="sumPackage">-</b></div>
-            <div class="total" id="sumPrice">฿0</div>
-            <button class="btn primary full" onclick="createOrder()">สร้างคำสั่งซื้อ</button>
-            <div class="note">ระบบชำระเงินและเติมเกมอัตโนมัติจะเชื่อมต่อภายหลัง</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card orders">
-        <div class="section-title" style="margin-top:0">
-          <h2>📋 ประวัติคำสั่งซื้อ</h2>
-          <button class="btn secondary" onclick="clearDemoOrders()">ล้างข้อมูลทดลอง</button>
-        </div>
-        <div id="orderList"><div class="note">ยังไม่มีคำสั่งซื้อ</div></div>
-      </section>
-    </div>
-  </main>
-
-  <footer>ZEROX TOPUP • Prototype v1.0</footer>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="app" class="hidden">
+<header class="topbar"><div class="container nav">
+  <div class="brand">ZEROX <span>TOPUP</span></div>
+  <nav class="navlinks">
+    <button class="active" data-page="home">หน้าหลัก</button>
+    <button data-page="topup">เติมเกม</button>
+    <button data-page="orders">ประวัติคำสั่งซื้อ</button>
+    <button data-page="payment">การชำระเงิน</button>
+    <button data-page="profile">โปรไฟล์</button>
+    <button data-page="contact">ติดต่อเรา</button>
+  </nav>
+  <button class="userbtn" data-page="profile">👤 <span id="navUser">ผู้ใช้</span></button>
+</div></header>
 
+<main class="container">
+<section id="home" class="page active">
+  <div class="hero"><h1>เติมเกมไว<br><span style="color:#35b8ff">ZEROX TOPUP</span></h1><p>เติมเกมง่าย ราคาเข้าถึงได้ เลือกเกม กรอก UID แล้วสั่งซื้อได้จากมือถือ</p><button class="btn" onclick="showPage('topup')">เริ่มเติมเกม →</button></div>
+  <div class="section-title"><h2>เกมที่ให้บริการ</h2><span class="muted">เลือกเกมที่ต้องการเติม</span></div>
+  <div class="games" id="gameGrid"></div>
+  <div class="section-title"><h2>ทำไมต้อง ZEROX?</h2></div>
+  <div class="info-grid"><div class="info"><b>⚡ เติมไว</b><span class="muted">ออกแบบให้สั่งซื้อจากมือถือได้ง่าย</span></div><div class="info"><b>🔒 ปลอดภัย</b><span class="muted">ระบบจริงจะตรวจสอบการชำระเงินฝั่งเซิร์ฟเวอร์</span></div><div class="info"><b>💸 ราคาชัดเจน</b><span class="muted">เห็นแพ็กเกจและราคาก่อนกดยืนยัน</span></div></div>
+</section>
+
+<section id="topup" class="page"><div class="section-title"><h2>🎮 เติมเกม</h2><span class="muted">เลือกเกมและแพ็กเกจ</span></div><div class="formbox">
+  <div class="field"><label>เลือกเกม</label><div class="games" id="topupGames"></div></div>
+  <div id="topupForm" class="hidden"><div class="field"><label id="uidLabel">UID เกม</label><input id="uid" placeholder="กรอก UID ของคุณ"></div><div class="field"><label>เลือกแพ็กเกจ</label><div class="packages" id="packages"></div></div><div class="orderbox"><div><div class="muted">ยอดรวม</div><div class="price" id="total">฿0</div></div><button class="btn" onclick="createOrder()">ยืนยันคำสั่งซื้อ</button></div></div>
+</div></section>
+
+<section id="orders" class="page"><div class="section-title"><h2>📋 ประวัติคำสั่งซื้อ</h2></div><div class="history"><div id="orderList" class="orders"></div></div></section>
+<section id="payment" class="page"><div class="section-title"><h2>💳 การชำระเงิน</h2></div><div class="paybox"><h3>ช่องทางชำระเงิน</h3><p class="muted" style="margin-top:7px">หน้านี้เป็นตัวอย่างก่อนเชื่อมระบบรับเงินจริง</p><div class="payqr">QR PAYMENT</div><p>หลังชำระเงิน ระบบจริงจะตรวจสอบสลิป/ยอดเงินจากฝั่งเซิร์ฟเวอร์ก่อนส่งคำสั่งเติมเกม</p></div></section>
+<section id="profile" class="page"><div class="section-title"><h2>👤 โปรไฟล์ของฉัน</h2></div><div class="profile"><div class="info-grid"><div class="info"><b>ชื่อผู้ใช้</b><span id="profileUser">-</span></div><div class="info"><b>สถานะ</b><span class="status">สมาชิก</span></div><div class="info"><b>คำสั่งซื้อ</b><span id="profileOrders">0 รายการ</span></div></div><button class="btn secondary" style="margin-top:18px" onclick="logout()">ออกจากระบบ</button></div></section>
+<section id="contact" class="page"><div class="section-title"><h2>📞 ติดต่อเรา</h2></div><div class="contact"><p>LINE: <b>@ZEROXTOPUP</b></p><p style="margin-top:10px">Facebook: <b>ZEROX TOPUP</b></p><p class="muted" style="margin-top:15px">เปลี่ยนข้อมูลติดต่อเป็นของร้านจริงก่อนเปิดใช้งาน</p></div></section>
+</main><footer class="footer">ZEROX TOPUP • เว็บไซต์ต้นแบบสำหรับพัฒนาร้านเติมเกม</footer>
+</div>
 <script>
-const packageData = {
-  "Free Fire":[
-    ["25 Diamonds",10],["50 Diamonds",18],["100 Diamonds",35],
-    ["310 Diamonds",99],["520 Diamonds",159],["1060 Diamonds",299]
-  ],
-  "RoV":[["55 Coupons",20],["110 Coupons",39],["220 Coupons",75],["550 Coupons",179]],
-  "PUBG Mobile":[["60 UC",25],["325 UC",119],["660 UC",229],["1800 UC",599]],
-  "eFootball":[["130 Coins",39],["550 Coins",149],["1050 Coins",279],["2150 Coins",549]]
+const games={
+ freefire:{name:'Free Fire',desc:'เติมเพชร Free Fire',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Freefirelogo.png?width=800',uid:'UID Free Fire',packs:[['25 Diamonds',10],['50 Diamonds',18],['100 Diamonds',35],['310 Diamonds',99],['520 Diamonds',159],['1060 Diamonds',299]]},
+ rov:{name:'RoV',desc:'เติมคูปอง RoV',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Arena_of_Valor_logo.png?width=800',uid:'Open ID / UID RoV',packs:[['55 คูปอง',20],['110 คูปอง',39],['220 คูปอง',75],['550 คูปอง',179]]},
+ pubg:{name:'PUBG Mobile',desc:'เติม UC PUBG Mobile',img:'https://commons.wikimedia.org/wiki/Special:FilePath/PUBG_Mobile_simple_logo_black.png?width=800',uid:'UID PUBG Mobile',packs:[['60 UC',25],['325 UC',119],['660 UC',229],['1800 UC',599]]},
+ valorant:{name:'VALORANT',desc:'เติม VP VALORANT',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Valorant_logo.svg?width=800',uid:'Riot ID',packs:[['475 VP',179],['1000 VP',349],['2050 VP',699],['3650 VP',1190]]}
 };
-
-let currentGame = "";
-let selectedPackage = null;
-
-function toast(msg){
-  const el=document.getElementById("toast");
-  el.textContent=msg;el.classList.add("show");
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>el.classList.remove("show"),2200);
-}
-
-function login(){
-  const username=document.getElementById("username").value.trim();
-  const password=document.getElementById("password").value;
-  if(!username){toast("กรุณากรอกชื่อผู้ใช้");return;}
-  if(!password){toast("กรุณากรอกรหัสผ่าน");return;}
-  localStorage.setItem("zeroxUser",username);
-  openStore(username);
-  toast("เข้าสู่ระบบแบบทดลองแล้ว");
-}
-
-function register(){
-  toast("ระบบสมัครสมาชิกจริงจะเพิ่มในขั้น Backend");
-}
-
-function openStore(username){
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("store").classList.remove("hidden");
-  document.getElementById("showUser").textContent=username;
-  renderOrders();
-}
-
-function logout(){
-  localStorage.removeItem("zeroxUser");
-  document.getElementById("store").classList.add("hidden");
-  document.getElementById("loginPage").classList.remove("hidden");
-  document.getElementById("password").value="";
-}
-
-function selectGame(game){
-  currentGame=game;selectedPackage=null;
-  document.getElementById("gameName").textContent=game;
-  document.getElementById("sumGame").textContent=game;
-  document.getElementById("sumUid").textContent="-";
-  document.getElementById("sumPackage").textContent="-";
-  document.getElementById("sumPrice").textContent="฿0";
-  document.getElementById("orderSection").classList.remove("hidden");
-  const box=document.getElementById("packages");
-  box.innerHTML="";
-  packageData[game].forEach((item,i)=>{
-    const b=document.createElement("button");
-    b.className="package";
-    b.innerHTML="<strong>"+item[0]+"</strong><span>฿"+item[1]+"</span>";
-    b.onclick=()=>choosePackage(i,b);
-    box.appendChild(b);
-  });
-  document.getElementById("orderSection").scrollIntoView({behavior:"smooth"});
-}
-
-function choosePackage(index,button){
-  selectedPackage=packageData[currentGame][index];
-  document.querySelectorAll(".package").forEach(x=>x.classList.remove("active"));
-  button.classList.add("active");
-  document.getElementById("sumPackage").textContent=selectedPackage[0];
-  document.getElementById("sumPrice").textContent="฿"+selectedPackage[1];
-}
-
-document.getElementById("playerId").addEventListener("input",e=>{
-  document.getElementById("sumUid").textContent=e.target.value.trim()||"-";
-});
-
-function createOrder(){
-  const uid=document.getElementById("playerId").value.trim();
-  if(!currentGame){toast("เลือกเกมก่อน");return;}
-  if(!uid){toast("กรุณากรอก UID / Player ID");return;}
-  if(!selectedPackage){toast("กรุณาเลือกแพ็กเกจ");return;}
-
-  const order={
-    id:"ZX"+Date.now().toString().slice(-8),
-    game:currentGame,uid:uid,
-    pack:selectedPackage[0],price:selectedPackage[1],
-    status:"รอชำระเงิน",
-    time:new Date().toLocaleString("th-TH")
-  };
-  const orders=JSON.parse(localStorage.getItem("zeroxOrders")||"[]");
-  orders.unshift(order);
-  localStorage.setItem("zeroxOrders",JSON.stringify(orders));
-  renderOrders();
-  toast("สร้างคำสั่งซื้อ "+order.id+" แล้ว");
-}
-
-function renderOrders(){
-  const list=document.getElementById("orderList");
-  const orders=JSON.parse(localStorage.getItem("zeroxOrders")||"[]");
-  if(!orders.length){
-    list.innerHTML='<div class="note">ยังไม่มีคำสั่งซื้อ</div>';
-    return;
-  }
-  list.innerHTML=orders.map(o=>`
-    <div class="order">
-      <div class="order-top">
-        <strong>${escapeHtml(o.id)} • ${escapeHtml(o.game)}</strong>
-        <span class="status">${escapeHtml(o.status)}</span>
-      </div>
-      <div class="note">UID: ${escapeHtml(o.uid)}</div>
-      <div class="note">${escapeHtml(o.pack)} • ฿${Number(o.price).toLocaleString("th-TH")}</div>
-      <div class="note">${escapeHtml(o.time)}</div>
-    </div>
-  `).join("");
-}
-
-function clearDemoOrders(){
-  localStorage.removeItem("zeroxOrders");
-  renderOrders();
-  toast("ล้างข้อมูลทดลองแล้ว");
-}
-
-function escapeHtml(value){
-  return String(value).replace(/[&<>"']/g,m=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[m]));
-}
-
-window.addEventListener("load",()=>{
-  const user=localStorage.getItem("zeroxUser");
-  if(user) openStore(user);
-});
+let selectedGame='freefire',selectedPack=null,isRegister=false;
+function gameCard(key,small=false){let g=games[key];return `<div class="game"><div class="gameimg"><img src="${g.img}" alt="${g.name}" loading="lazy"></div><div class="gamebody"><h3>${g.name}</h3><p>${g.desc}</p><button class="btn" onclick="selectGame('${key}')">${small?'เลือกเกม':'เติมเกมนี้'}</button></div></div>`}
+function renderGames(){gameGrid.innerHTML=Object.keys(games).map(k=>gameCard(k)).join('');topupGames.innerHTML=Object.keys(games).map(k=>gameCard(k,true)).join('')}
+function selectGame(k){selectedGame=k;selectedPack=null;uid.value='';topupForm.classList.remove('hidden');uidLabel.textContent=games[k].uid;packages.innerHTML=games[k].packs.map((p,i)=>`<button class="pkg" onclick="selectPack(${i})"><strong>${p[0]}</strong><span>฿${p[1]}</span></button>`).join('');total.textContent='฿0';showPage('topup')}
+function selectPack(i){selectedPack=i;document.querySelectorAll('.pkg').forEach((e,n)=>e.classList.toggle('selected',n===i));total.textContent='฿'+games[selectedGame].packs[i][1]}
+function createOrder(){let u=uid.value.trim();if(!u)return alert('กรอก UID ก่อน');if(selectedPack===null)return alert('เลือกแพ็กเกจก่อน');let p=games[selectedGame].packs[selectedPack];let orders=JSON.parse(localStorage.getItem('zerox_orders')||'[]');orders.unshift({id:'ZX'+Date.now().toString().slice(-7),game:games[selectedGame].name,pack:p[0],price:p[1],uid:u,time:new Date().toLocaleString('th-TH'),status:'รอชำระเงิน'});localStorage.setItem('zerox_orders',JSON.stringify(orders));renderOrders();showPage('orders');alert('สร้างคำสั่งซื้อแล้ว (เดโม)')}
+function renderOrders(){let os=JSON.parse(localStorage.getItem('zerox_orders')||'[]');profileOrders.textContent=os.length+' รายการ';orderList.innerHTML=os.length?os.map(o=>`<div class="order"><div><b>${o.game} • ${o.pack}</b><div class="muted">UID: ${o.uid} • ${o.time}</div><div class="muted">เลขออเดอร์: ${o.id}</div></div><div style="text-align:right"><b>฿${o.price}</b><div class="status">${o.status}</div></div></div>`).join(''):'<p class="muted">ยังไม่มีคำสั่งซื้อ</p>'}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navlinks button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function toggleRegister(){isRegister=!isRegister;loginTitle.textContent=isRegister?'สมัครสมาชิก':'เข้าสู่ระบบ';switchText.textContent=isRegister?'มีบัญชีแล้ว?':'ยังไม่มีบัญชี?';switchBtn.textContent=isRegister?'เข้าสู่ระบบ':'สมัครสมาชิก'}
+function login(){let u=username.value.trim(),p=password.value;if(!u||!p)return alert('กรอกชื่อผู้ใช้และรหัสผ่านก่อน');localStorage.setItem('zerox_user',u);openApp()}
+function openApp(){let u=localStorage.getItem('zerox_user');if(!u)return;loginPage.classList.add('hidden');app.classList.remove('hidden');navUser.textContent=u;profileUser.textContent=u;renderOrders();renderGames()}
+function logout(){localStorage.removeItem('zerox_user');app.classList.add('hidden');loginPage.classList.remove('hidden')}
+if(localStorage.getItem('zerox_user'))openApp();else renderGames();
 </script>
-</body>
-</html>
+</body></html>
